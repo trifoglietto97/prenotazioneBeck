@@ -1,8 +1,9 @@
 package com.example.prenotazionebeck.repository;
 
 import com.example.prenotazionebeck.entity.Prenotazione;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 
 
 import java.time.LocalDateTime;
@@ -16,10 +17,15 @@ public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long
     List<Prenotazione> findAllByEmail(String email);
     void deleteByIdPrenotazione(Long id);
     public Prenotazione findByIdPrenotazione(Long id);
-    List<Prenotazione> findAllByListaOrari_DateBetween(LocalDateTime startDate, LocalDateTime endDate);
+    List<Prenotazione> findAllByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 
     List<Prenotazione> findAllByNomePrenotazioneContains(String var); //cerca nome
 
+    Prenotazione save(Prenotazione p);
+    List<Prenotazione> findAll();
+
+
+    Page<Prenotazione> findByNomePrenotazioneContaining(String title, Pageable pageable);
 
 
 }

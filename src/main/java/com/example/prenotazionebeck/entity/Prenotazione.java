@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -20,8 +21,7 @@ public class Prenotazione {
 
     private String nomePrenotazione;
     private String email;
+    private LocalDateTime date;
 
-    @OneToMany( cascade = CascadeType.ALL)
-    @JoinColumn(name = "idPrenotazione", referencedColumnName = "idPrenotazione")
-    private List<Orari> listaOrari;
 }
+

@@ -2,6 +2,7 @@ package com.example.prenotazionebeck.service;
 
 import com.example.prenotazionebeck.entity.Prenotazione;
 import com.example.prenotazionebeck.repository.PrenotazioneRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class PrenotazioneService {
     @Autowired
     private PrenotazioneRepository prenotazioneRepository;
@@ -23,16 +25,13 @@ public class PrenotazioneService {
     }
 
     public List<Prenotazione> findByName(String name){
-        return prenotazioneRepository.findAllByNomePrenotazione(name);
+        return prenotazioneRepository.findAllByNomePrenotazioneContains(name);
     }
 
     public List<Prenotazione> findByEmail(String email){
         return prenotazioneRepository.findAllByEmail(email);
     }
 
-    public void delete(Long id){
-        prenotazioneRepository.deleteByIdPrenotazione(id);
-    }
 
     public Prenotazione findById(Long id){
         return prenotazioneRepository.findByIdPrenotazione(id);
@@ -47,7 +46,7 @@ public class PrenotazioneService {
     }
 
     public List<Prenotazione> listTo(LocalDateTime date1, LocalDateTime date2){
-        return prenotazioneRepository.findAllByListaOrari_DateBetween(date1, date2);
+        return prenotazioneRepository.findAllByDateBetween(date1, date2);
     }
 
     public Page<Prenotazione> gePagination(Integer pageNumber, Integer pageSize) {
@@ -57,8 +56,10 @@ public class PrenotazioneService {
     }
 
     public void deleteById(Long id){
-        prenotazioneRepository.deleteById(id);
+        prenotazioneRepository.deleteByIdPrenotazione(id);
     }
+
+
 
 }
 
